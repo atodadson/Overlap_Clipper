@@ -8,7 +8,7 @@
                               -------------------
         begin                : 2024-10-02
         git sha              : $Format:%H$
-        copyright            : (C) 2024 by Afarinick Company Limited
+        copyright            : (C) 2024 by Benjamin Dadson
         email                : benjamindadson32@gmail.com
  ***************************************************************************/
 """

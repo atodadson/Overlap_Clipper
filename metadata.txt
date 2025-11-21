@@ -11,8 +11,8 @@ author=Benjamin Dadson
 email=benjamindadson32@gmail.com
 
 about=This plugin helps clean overlapping polygon features in a layer. It detects polygons that intersect and clips them so that no overlaps remain. Users can choose whether to process only the selected features or all features that intersect with the selection. The plugin also allows prioritizing which polygon keeps its shape based on selection order, largest area, or smallest area.
-tracker=http://bugs
-repository=http://github.com/atodadson/qgis_cliptool
+tracker=https://github.com/atodadson/Overlap_Clipper
+repository=https://github.com/atodadson/Overlap_Clipper
 # End of mandatory metadata
 
 # Recommended items:
@@ -28,7 +28,7 @@ homepage=http://homepage
 category=Plugins
 icon=icon.png
 # experimental flag
-experimental=True
+experimental=False
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
@@ -39,7 +39,7 @@ deprecated=False
 # plugin_dependencies=
 
 Category of the plugin: Raster, Vector, Database or Web
-# category=Vector
+category=Vector
 
 # If the plugin can run on QGIS Server.
 server=False

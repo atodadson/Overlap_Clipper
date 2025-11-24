@@ -121,7 +121,7 @@ class OverlapClipper:
         icon_path = ':/plugins/overlap_clipper/icon.png'
         self.add_action(
             icon_path,
-            text=self.tr(u''),
+            text=self.tr(u'Overlap Clipper'),
             callback=self.run,
             parent=self.iface.mainWindow())
 

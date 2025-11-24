@@ -5,14 +5,14 @@
 [general]
 name=Overlap Clipper
 qgisMinimumVersion=3.0
-description=This module provides tools for clipping and cleaning overlapping polygon features.
-version=1.1
+description=This module provides tools for clipping and cleaning overlapping polygons features.
+version=0.1
 author=Benjamin Dadson
 email=benjamindadson32@gmail.com
 
-about=This plugin helps clean overlapping polygon features in a layer. It detects polygons that intersect and clips them so that no overlaps remain. Users can choose whether to process only the selected features or all features that intersect with the selection. The plugin also allows prioritizing which polygon keeps its shape based on selection order, largest area, or smallest area.
-tracker=https://github.com/atodadson/Overlap_Clipper
-repository=https://github.com/atodadson/Overlap_Clipper
+about=This plugin helps clean overlapping polygon features in a layer. It detects polygons that intersect and clips them so that no overlaps remain. Users can choose whether to process only the selected features or all features that intersect with the selection. The plugin also allows prioritizing which polygon keeps its shape based on selection order, largest area, or smallest area
+tracker=http://github.com/atodadson/Overlap_Clipper/issues
+repository=http://github.com/atodadson/Overlap_Clipper
 # End of mandatory metadata
 
 # Recommended items:
@@ -24,7 +24,7 @@ hasProcessingProvider=no
 # Tags are comma separated with spaces allowed
 tags=python,polygon,overlap,clip,intersection
 
-homepage=http://homepage
+homepage=http://github.com/atodadson/Overlap_Clipper
 category=Plugins
 icon=icon.png
 # experimental flag
@@ -39,7 +39,7 @@ deprecated=False
 # plugin_dependencies=
 
 Category of the plugin: Raster, Vector, Database or Web
-category=Vector
+# category=Vector
 
 # If the plugin can run on QGIS Server.
 server=False

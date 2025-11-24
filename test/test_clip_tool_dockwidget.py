@@ -16,7 +16,7 @@ import unittest
 
 from qgis.PyQt.QtGui import QDockWidget
 
-from clip_tool_dockwidget import ClipToolDockWidget
+from overlap_clipper_dockwidget import ClipToolDockWidget
 
 from utilities import get_qgis_app
 

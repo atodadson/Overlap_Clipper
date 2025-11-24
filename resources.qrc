@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/plugins/clip_tool" >
+    <qresource prefix="/plugins/overlap_clipper" >
         <file>icon.png</file>
     </qresource>
 </RCC>

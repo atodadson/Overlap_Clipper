@@ -1,5 +1,5 @@
 #/***************************************************************************
-# ClipTool
+# OverlapClipper
 #
 # This modules clips features
 #							 -------------------
@@ -38,15 +38,15 @@ LOCALES =
 # translation
 SOURCES = \
 	__init__.py \
-	clip_tool.py clip_tool_dockwidget.py
+	overlap_clipper.py overlap_clipper_dockwidget.py
 
-PLUGINNAME = clip_tool
+PLUGINNAME = overlap_clipper
 
 PY_FILES = \
 	__init__.py \
-	clip_tool.py clip_tool_dockwidget.py
+	overlap_clipper.py overlap_clipper_dockwidget.py
 
-UI_FILES = clip_tool_dockwidget_base.ui
+UI_FILES = overlap_clipper_dockwidget_base.ui
 
 EXTRAS = metadata.txt main_icon.png
 

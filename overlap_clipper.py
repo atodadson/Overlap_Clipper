@@ -233,9 +233,18 @@ class OverlapClipper:
             return []
 
         # Determine the set of features to process based on the 'Edit all intersecting' checkbox.
-        edit_all_intersecting = self.dockwidget.check_all_intersecting.isChecked()
+        edit_selection_only = self.dockwidget.check_edit_selection_only.isChecked()
 
-        if edit_all_intersecting:
+        if edit_selection_only:
+            # Original logic: Only selected features are considered.
+            # self.log_message("Processing only selected features.", 0)
+            if len(selected_features) < 2:
+                self.log_message("Please select at least two features to process.", 1)
+                return []
+
+            fids_to_process = [f.id() for f in selected_features]
+        
+        else:
             # New logic: Find all features in the active layer that intersect with any selected feature.
             # self.log_message("Checking for all intersecting features in the active layer.", 0)
 
@@ -266,15 +275,6 @@ class OverlapClipper:
             if len(fids_to_process) < 2:
                 self.log_message("Less than two features found for processing (selected + intersecting).", 1)
                 return []
-
-        else:
-            # Original logic: Only selected features are considered.
-            # self.log_message("Processing only selected features.", 0)
-            if len(selected_features) < 2:
-                self.log_message("Please select at least two features to process.", 1)
-                return []
-
-            fids_to_process = [f.id() for f in selected_features]
 
         # Apply sorting logic based on the selected overlap option
         if self.overlap_option == "First":

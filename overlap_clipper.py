@@ -229,7 +229,7 @@ class OverlapClipper:
 
         selected_features = self.layer.selectedFeatures()
         if not selected_features:
-            # self.log_message("No features selected!", 1)
+            self.log_message("No features selected!", 1)
             return []
 
         # Determine the set of features to process based on the 'Edit all intersecting' checkbox.
@@ -346,12 +346,16 @@ class OverlapClipper:
 
         # Commit changes and clean up
         if processed_count > 0:
-            try:
-                self.layer.commitChanges()
-                # self.log_message(f"Successfully clipped {processed_count} feature pairs. Changes committed.", 0)
-            except Exception as e:
-                self.log_message(f"Failed to commit changes: {e}. Rolling back.", 2)
-                self.layer.rollBack()
+            enable_undo = self.dockwidget.check_enable_undo.isChecked()
+            if enable_undo:
+                self.log_message(f"Successfully clipped {processed_count} feature pairs. Changes committed.", 0)
+            else:
+                try:
+                    self.layer.commitChanges()
+                    self.log_message(f"Successfully clipped {processed_count} feature pairs. Changes committed.", 0)
+                except Exception as e:
+                    self.log_message(f"Failed to commit changes: {e}. Rolling back.", 2)
+                    self.layer.rollBack()
         else:
             self.layer.rollBack()
             self.log_message("No features were modified. Edit session rolled back.", 0)
@@ -568,7 +572,8 @@ class OverlapClipper:
         self.dockwidget.firstSelected.setEnabled(is_polygon_layer)
         self.dockwidget.largest.setEnabled(is_polygon_layer)
         self.dockwidget.smallest.setEnabled(is_polygon_layer)
-        self.dockwidget.check_all_intersecting.setEnabled(is_polygon_layer)
+        self.dockwidget.check_edit_selection_only.setEnabled(is_polygon_layer)
+        self.dockwidget.check_enable_undo.setEnabled(is_polygon_layer)
 
         # 4. Update tree widget and connect new signal if applicable
         self.populate_treewidget()

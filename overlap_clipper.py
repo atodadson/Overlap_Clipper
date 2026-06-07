@@ -21,8 +21,9 @@ from .resources import *
 # Import the code for the DockWidget
 from .overlap_clipper_dockwidget import OverlapClipperDockWidget, DialogWindow
 from .algorithms import clean_overlap, get_feature_area, clean_geometry_artifacts
+
 import os.path
-from qgis.core import QgsFeatureRequest, QgsProject, QgsFeature, QgsGeometry, Qgis, QgsWkbTypes
+from qgis.core import QgsApplication, QgsFeatureRequest, QgsProject, QgsFeature, QgsGeometry, Qgis, QgsWkbTypes
 from itertools import combinations
 
 from qgis.core import (
@@ -52,6 +53,9 @@ class OverlapClipper:
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
 
+        # Set Provider for Algorithms
+        self.provider = None
+
         # initialize locale
         locale = QSettings().value('locale/userLocale')[0:2]
         locale_path = os.path.join(
@@ -73,6 +77,15 @@ class OverlapClipper:
         self.pluginIsActive = False
         self.dockwidget = None
         self.layer = None  # Initialize layer attribute
+
+        self.loadAlgorithms()
+
+
+    def loadAlgorithms(self):
+        """Register the custom processing provider and its algorithms."""
+        from .providers import OverlapProvider
+        self.provider = OverlapProvider()
+        QgsApplication.processingRegistry().addProvider(self.provider)
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -146,6 +159,11 @@ class OverlapClipper:
             self.iface.removeToolBarIcon(action)
         # remove the toolbar
         del self.toolbar
+
+        # Remove Provider from registry
+        if self.provider is not None:
+            QgsApplication.processingRegistry().removeProvider(self.provider)
+            self.provider = None
 
     # --------------------------------------------------------------------------
 

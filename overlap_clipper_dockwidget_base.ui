@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>OverlapClipperDockWidgetBase</class>
+ <class>ClipToolDockWidgetBase</class>
  <widget class="QDockWidget" name="ClipToolDockWidgetBase">
   <property name="geometry">
    <rect>
@@ -29,9 +29,19 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="check_all_intersecting">
+         <widget class="QCheckBox" name="check_edit_selection_only">
           <property name="text">
            <string>Edit selection only</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="check_enable_undo">
+          <property name="text">
+           <string>Enable Undo</string>
           </property>
           <property name="checked">
            <bool>true</bool>

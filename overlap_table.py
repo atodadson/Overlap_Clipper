@@ -15,7 +15,7 @@ Output fields per row:
   - Overlap Area % of Feature B
 """
  
-from qgis.PyQt.QtCore import QCoreApplication, QVariant
+from qgis.PyQt.QtCore import QCoreApplication, QVariant, QMetaType
 from qgis.core import (
     QgsProcessing,
     QgsProcessingAlgorithm,
@@ -45,10 +45,10 @@ class OverlapTableAlgorithm(QgsProcessingAlgorithm):
     # ------------------------------------------------------------------
  
     def name(self):
-        return "generateoverlapstable"
+        return "generateoverlaptable"
  
     def displayName(self):
-        return "Generate Overlaps Table"
+        return "Generate Overlap Table"
  
     def group(self):
         return "Vector Analysis"
@@ -131,8 +131,8 @@ class OverlapTableAlgorithm(QgsProcessingAlgorithm):
  
         # ── 2. Build output schema ─────────────────────────────────────
         out_fields = QgsFields()
-        out_fields.append(QgsField("fid_a", QVariant.LongLong))
-        out_fields.append(QgsField("fid_b", QVariant.LongLong))
+        out_fields.append(QgsField("fid_a", QMetaType.Type.LongLong))
+        out_fields.append(QgsField("fid_b", QMetaType.Type.LongLong))
  
         for f in chosen_fields:
             fa = QgsField(f)
@@ -144,9 +144,9 @@ class OverlapTableAlgorithm(QgsProcessingAlgorithm):
             fb.setName("b_" + f.name())
             out_fields.append(fb)
  
-        out_fields.append(QgsField("overlap_area",   QVariant.Double))
-        out_fields.append(QgsField("overlap_pct_a",  QVariant.Double))
-        out_fields.append(QgsField("overlap_pct_b",  QVariant.Double))
+        out_fields.append(QgsField("overlap_area",   QMetaType.Type.Double))
+        out_fields.append(QgsField("overlap_pct_a",  QMetaType.Type.Double))
+        out_fields.append(QgsField("overlap_pct_b",  QMetaType.Type.Double))
  
         # ── 3. Create sink ─────────────────────────────────────────────
         (sink, dest_id) = self.parameterAsSink(

@@ -94,12 +94,19 @@
        </layout>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="clipButton">
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Clip overlaps of &lt;span style=&quot; font-weight:600;&quot;&gt;selected&lt;/span&gt; features&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
          <string>Clip</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="overlapTableButton">
+        <property name="text">
+         <string>Generate Overlap Table</string>
         </property>
        </widget>
       </item>

@@ -24,6 +24,7 @@ from .algorithms import clean_overlap, get_feature_area, clean_geometry_artifact
 
 import os.path
 from qgis.core import QgsApplication, QgsFeatureRequest, QgsProject, QgsFeature, QgsGeometry, Qgis, QgsWkbTypes
+from processing.gui.AlgorithmDialog import AlgorithmDialog
 from itertools import combinations
 
 from qgis.core import (
@@ -183,9 +184,8 @@ class OverlapClipper:
                 self.dockwidget = OverlapClipperDockWidget()
 
                 # Make necessary Events & Signals connections
-                self.dockwidget.pushButton.clicked.connect(self.do_clip)
-                # self.dockwidget.pushButton_2.clicked.connect(self.open_dialog)
-
+                self.dockwidget.clipButton.clicked.connect(self.do_clip)
+                self.dockwidget.overlapTableButton.clicked.connect(self.generate_overlap_table)
                 self.button_group = QButtonGroup(self.dockwidget)
                 self.button_group.addButton(self.dockwidget.firstSelected)
                 self.dockwidget.firstSelected.clicked.connect(
@@ -586,7 +586,8 @@ class OverlapClipper:
             # self.log_message("No active layer selected. Clip button disabled.", 1)
 
         # 3. Update UI state
-        self.dockwidget.pushButton.setEnabled(is_polygon_layer)
+        self.dockwidget.clipButton.setEnabled(is_polygon_layer)
+        self.dockwidget.overlapTableButton.setEnabled(is_polygon_layer)
         self.dockwidget.firstSelected.setEnabled(is_polygon_layer)
         self.dockwidget.largest.setEnabled(is_polygon_layer)
         self.dockwidget.smallest.setEnabled(is_polygon_layer)
@@ -611,4 +612,15 @@ class OverlapClipper:
         # Create an instance of the dialog
         dialog = DialogWindow(self.dockwidget)
         # Show the dialog
+        dialog.exec_()
+
+    def generate_overlap_table(self):
+        # Look up your algorithm by its provider ID + algorithm name
+        self.log_message("Algorithm just started. Make sure it is registered.", 0)
+        alg = QgsApplication.processingRegistry().algorithmById("overlap_clipper_provider:generateoverlaptable")
+        if alg is None:
+            self.log_message("Algorithm not found. Make sure it is registered.", 2)
+            return
+        # Open the standard Processing dialog
+        dialog = AlgorithmDialog(alg, parent=self.dockwidget)
         dialog.exec_()

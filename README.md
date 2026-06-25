@@ -4,7 +4,7 @@
 
 ## Overview
 
-The **Overlap Clipper** is a powerful QGIS plugin designed to automatically clean overlaps between polygon features within a single layer. It provides a robust, customizable, and efficient solution for maintaining topological integrity in your vector data, eliminating common issues like slivers and unwanted overlaps.
+The **Overlap Clipper** is a powerful QGIS plugin designed to detect and clean overlaps between polygon features within a single layer. It provides a robust, customizable, and efficient solution for maintaining topological integrity in your vector data, eliminating common issues like slivers and unwanted overlaps.
 
 ## Features
 

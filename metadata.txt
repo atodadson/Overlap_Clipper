@@ -6,7 +6,7 @@
 name=Overlap Clipper
 qgisMinimumVersion=3.0
 description=This module provides tools for clipping and cleaning overlapping polygons features.
-version=0.1.1
+version=1.0.0
 author=Benjamin Dadson
 email=benjamindadson32@gmail.com
 
@@ -17,12 +17,12 @@ repository=http://github.com/atodadson/Overlap_Clipper
 
 # Recommended items:
 
-hasProcessingProvider=no
+hasProcessingProvider=yes
 # Uncomment the following line and add your changelog:
-changelog=0.1.1 Bug fix - Added resource file
+changelog=1.0.0 New feature - Generate Overlap Table
 
 # Tags are comma separated with spaces allowed
-tags=python,polygon,overlap,clip,intersection
+tags=python,polygon,overlap,clip,intersection,topology
 
 homepage=http://github.com/atodadson/Overlap_Clipper
 category=Plugins

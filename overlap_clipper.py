@@ -15,6 +15,7 @@
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QMessageBox, QButtonGroup, QTreeWidgetItem, QCheckBox
+from qgis.gui import QgsProcessingAlgorithmDialogBase
 # Initialize Qt resources from file resources.py
 from .resources import *
 
@@ -359,6 +360,7 @@ class OverlapClipper:
         processed_count = 0
         for f_id1, f_id2 in fid_combinations:
             # f_id1 is the dominant feature (clipper), f_id2 is the clipped feature
+            # self.log_message(f"FID COMBINATIONS {fid_combinations}")
             if self.modify_features(f_id1, f_id2):
                 processed_count += 1
 
@@ -376,7 +378,7 @@ class OverlapClipper:
                     self.layer.rollBack()
         else:
             self.layer.rollBack()
-            self.log_message("No features were modified. Edit session rolled back.", 0)
+            self.log_message("No features were modified.", 0)
 
         self.layer.removeSelection()
         self.populate_treewidget()  # Refresh the tree widget
@@ -415,7 +417,7 @@ class OverlapClipper:
             geom2 = clean_geometry_artifacts(geom2)
 
             # Step 1: Check if they overlap
-            if not geom1.intersects(geom2):
+            if geom1.intersection(geom2).area() <= 0:
                 # self.log_message(f"Features {f_id1} and {f_id2} do not overlap. Skipping.", 0)
                 return False
 
@@ -615,12 +617,10 @@ class OverlapClipper:
         dialog.exec_()
 
     def generate_overlap_table(self):
-        # Look up your algorithm by its provider ID + algorithm name
-        self.log_message("Algorithm just started. Make sure it is registered.", 0)
         alg = QgsApplication.processingRegistry().algorithmById("overlap_clipper_provider:generateoverlaptable")
         if alg is None:
             self.log_message("Algorithm not found. Make sure it is registered.", 2)
             return
-        # Open the standard Processing dialog
-        dialog = AlgorithmDialog(alg, parent=self.dockwidget)
-        dialog.exec_()
+       
+        processing.execAlgorithmDialog(alg)
+

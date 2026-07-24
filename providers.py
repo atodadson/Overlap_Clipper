@@ -1,13 +1,14 @@
 from qgis.core import QgsProcessingProvider
 from .overlap_table import OverlapTableAlgorithm
 
+
 class OverlapProvider(QgsProcessingProvider):
 
     def id(self):
-        return "overlap_clipper_provider"          # must match the ID used in algorithmById()
+        return "overlap_clipper_provider"
 
     def name(self):
-        return "Overlap Clipper"                 # group name shown in the Toolbox
+        return "Overlap Clipper"
 
     def longName(self):
         return "Overlap Clipper"
@@ -16,5 +17,4 @@ class OverlapProvider(QgsProcessingProvider):
         self.addAlgorithm(OverlapTableAlgorithm())
 
     def icon(self):
-        # Optional — return a QIcon for the Toolbox group
         return super().icon()

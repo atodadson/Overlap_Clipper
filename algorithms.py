@@ -1,18 +1,22 @@
-from qgis.core import QgsGeometry, QgsWkbTypes, QgsFeature, QgsPointXY
+from qgis.core import QgsGeometry
+
 
 def clean_overlap(geom_to_be_clipped, geom_clipper):
     """
-    Cleans the overlap between two geometries by performing a difference operation,
-    and then using the result of the reverse difference to attempt to clean the boundary.
+    Cleans the overlap between two geometries
+    by performing a difference operation,
 
     This method avoids QgsGeometrySimplifier and QgsGeometryAnalyzer.
 
     Args:
-        geom_to_be_clipped (QgsGeometry): The geometry from which the overlap will be removed.
-        geom_clipper (QgsGeometry): The geometry that defines the area to be removed.
+        geom_to_be_clipped (QgsGeometry): The geometry from
+        which the overlap will be removed.
+        geom_clipper (QgsGeometry): The geometry that
+        defines the area to be removed.
 
     Returns:
-        QgsGeometry: The resulting geometry after the difference operation and cleaning.
+        QgsGeometry: The resulting geometry after
+        the difference operation and cleaning.
     """
     # 1. Check for intersection first
     if not geom_to_be_clipped.intersects(geom_clipper):
@@ -22,30 +26,22 @@ def clean_overlap(geom_to_be_clipped, geom_clipper):
     # This is the desired result, but may contain slivers.
     modified_geom = geom_to_be_clipped.difference(geom_clipper)
 
-    # 3. Perform the reverse difference operation (B - A)
-    # This gives us the part of the clipper that does NOT overlap the clipped geometry.
-    # The user requested this to check if it helps with the error, but it's not
-    # a standard method for cleaning the primary result. We will use it to
-    # perform a final union with the primary result's boundary, which is a common
-    # technique to "snap" the boundaries together.
-    # However, since the goal is to clean the overlap, we will focus on cleaning
-    # the primary result using only MakeValid and RemoveDuplicateNodes.
-
-    # 4. Robust Post-Processing (MakeValid and RemoveDuplicateNodes only)
-    # This is the most reliable cleaning method without external modules.
-
-    # Ensure the result is valid (fixes topological errors like self-intersections,
+    # 3. Robust Post-Processing (MakeValid and RemoveDuplicateNodes only)
+    # Ensure the result is valid
+    # (fixes topological errors like self-intersections,
     # which are often the cause of slivers).
     if not modified_geom.isGeosValid():
         modified_geom = modified_geom.makeValid()
 
-    # Remove any duplicate nodes that might have been created near the cut boundary.
+    # Remove any duplicate nodes that might
+    # have been created near the cut boundary.
     modified_geom.removeDuplicateNodes()
 
     if modified_geom.isEmpty():
         return QgsGeometry()
 
     return modified_geom
+
 
 def clean_geometry_artifacts(geometry):
     """
@@ -69,6 +65,7 @@ def clean_geometry_artifacts(geometry):
         geometry = geometry.makeValid()
 
     return geometry
+
 
 def get_feature_area(feature):
     """
